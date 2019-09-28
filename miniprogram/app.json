@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/xiaodou/xiaodou",
+    "pages/infoDetail/infoDetail",
+    "pages/detail/detail",
+    "pages/addOne/addOne",
+    "pages/auth/auth"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "小豆班",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

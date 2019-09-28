@@ -1,0 +1,27 @@
+<view id="title">
+  {{list.type}}
+</view>
+<view id="date">
+  {{list.date}}
+</view>
+<view id="content">
+  {{list.content}}
+</view>
+<image src="{{itemName}}" wx:for="{{imgSrc}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" mode="widthFix" id="contentImg" data-src="{{itemName}}" bindtap="previewImage"></image>
+
+<view wx:if="{{!isTeacher}}">
+  <view id="parentsInfo" wx:if="{{!isInfo}}">
+  <view>确认收到</view>
+  <input id="parentsInfoInput" placeholder="请输入您孩子的姓名" bindinput="parentsInfo"></input>
+  <button id="parentsInfoBtn" bindtap="infoBtn">提交</button>
+</view>
+<view id="parentsDetail" wx:if="{{isInfo}}">
+  <view>您已确认收到，可点击下方按钮查看提交详情</view>
+  <button id="parentsDetailBtn" bindtap="detailBtn">查看详情</button>
+</view>
+</view>
+<view id="parentsDetail" wx:if="{{isTeacher}}">
+  <view>点击下方按钮查看家长提交详情</view>
+  <button id="parentsDetailBtn" bindtap="detailBtn">查看详情</button>
+</view>
+<image wx:if="{{isShare}}" bindtap='backHome' class='d-back-home' src='../../images/back.png' lazy-load></image>

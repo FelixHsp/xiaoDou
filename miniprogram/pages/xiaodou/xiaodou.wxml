@@ -1,0 +1,30 @@
+<view id="weatherWrapper">
+  <image src="{{weatherImg}}" id="weatherImg"></image>
+  <view id="weatherWelcome">{{welcome}}</view>
+  <view id="weatherTem">{{weather.tem}}</view>
+  <view id="weatherTem2">{{weather.tem2}}</view>
+  <view id="weatherTitle">{{weather.title}}</view>
+  <view id="weatherTip">{{weather.tip}}</view>
+</view>
+<button wx:if="{{!haveTeacher}}" id="teacherBtn" bindtap="watchTeacher">查看教师码</button>
+<view id="addOne" bindtap="add" wx:if="{{isTeacher}}">
+  <image src="../../images/add.png"></image>
+  <!-- <view>发布一个通知</view> -->
+</view>
+
+<view id="theNew">
+
+</view>
+
+<view id="list" wx:for="{{list}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" bindtap="goDetail" data-id="{{itemName._id}}">
+  <view id="type">
+    {{itemName.type}}
+  </view>
+  <view id="date">
+    {{itemName.date}}
+  </view>
+  <view id="content">
+    {{itemName.content}}
+  </view>
+  <image src="../../images/biao.png"></image>
+</view>
