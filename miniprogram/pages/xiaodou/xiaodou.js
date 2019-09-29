@@ -12,6 +12,46 @@ Page({
     isTeacher:false,
     openid:'',
     haveTeacher:true,
+    weatherList:[],
+    todayWeather:[],
+    routers: [
+      {
+        name: '',
+        value:''
+      },
+      {
+        name: '',
+        value: ''
+      },
+      {
+        name: '',
+        value: ''
+      },
+      {
+        name: '',
+        value: ''
+      },
+      {
+        name: '',
+        value: ''
+      },
+      {
+        name: '',
+        value: ''
+      },
+      {
+        name: '',
+        value: ''
+      },
+      {
+        name: '',
+        value: ''
+      },
+      {
+        name: '',
+        value: ''
+      }
+    ]
   },
 
   /**
@@ -48,6 +88,38 @@ Page({
     })
     wx.cloud.callFunction({
       // 云函数名称
+      name: 'todayweather',
+      // 传给云函数的参数
+      data: {
+        code: '101050101',
+        appid: 'wx884a75aea256a5b8',
+        secret: '65dc06535039fc2495795ab4ba1cfb0c'
+      },
+    }).then(res => {
+      console.log(JSON.parse(res.result))
+      this.setData({
+        ['routers[0].name']: '空气'+JSON.parse(res.result).air,
+        ['routers[0].value']: JSON.parse(res.result).air_level,
+        ['routers[1].name']: JSON.parse(res.result).win,
+        ['routers[1].value']: JSON.parse(res.result).win_speed,
+        ['routers[2].name']: '湿度',
+        ['routers[2].value']: JSON.parse(res.result).humidity,
+        ['routers[3].name']: '能见度',
+        ['routers[3].value']: JSON.parse(res.result).visibility,
+        ['routers[4].name']: '气压',
+        ['routers[4].value']: JSON.parse(res.result).pressure,
+        ['routers[5].name']: '风速',
+        ['routers[5].value']: JSON.parse(res.result).win_meter,
+        ['routers[6].name']: 'PM2.5',
+        ['routers[6].value']: JSON.parse(res.result).air_pm25,
+        ['routers[7].name']: '城市',
+        ['routers[7].value']: JSON.parse(res.result).city,
+        ['routers[8].name']: '更新时间',
+        ['routers[8].value']: JSON.parse(res.result).update_time,
+      })
+    })
+    wx.cloud.callFunction({
+      // 云函数名称
       name: 'weather',
       // 传给云函数的参数
       data: {
@@ -56,8 +128,11 @@ Page({
         secret:'65dc06535039fc2495795ab4ba1cfb0c'
       },
     }).then(res => {
-      console.log(JSON.parse(res.result).data[0])
-      // console.log(JSON.parse(res.result).weatherinfo)
+      // console.log(JSON.parse(res.result).data[0])
+      // console.log(JSON.parse(res.result))
+      this.setData({
+        weatherList: JSON.parse(res.result).data
+      })
       // city = JSON.parse(res.result).weatherinfo.city
       // temp = JSON.parse(res.result).weatherinfo.temp
       if (JSON.parse(res.result).data[0].wea_img == 'qing'){
@@ -158,7 +233,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
+      console.log(res.data)
+      this.setData({
+        list: res.data
+      })
+      wx.stopPullDownRefresh()
+    })
   },
 
   /**
@@ -179,14 +260,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
+      console.log(res.data)
+      this.setData({
+        list: res.data
+      })
+      wx.stopPullDownRefresh()
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    
   },
 
   /**

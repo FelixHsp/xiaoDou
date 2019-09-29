@@ -28,3 +28,52 @@
   </view>
   <image src="../../images/biao.png"></image>
 </view>
+<view wx:if="{{!haveTeacher}}" id="weatherList">
+  <view id="today">
+    <view>
+      {{weatherList[0].wea}}
+    </view>
+    <view>
+      {{weatherList[0].tem2}} / {{weatherList[0].tem1}}
+    </view>
+    <view>
+      {{weatherList[0].day}}
+    </view>
+
+  </view>
+  <view id="tomorrow">
+    <view>
+      {{weatherList[1].wea}}
+    </view>
+    <view>
+      {{weatherList[1].tem2}} / {{weatherList[1].tem1}}
+    </view>
+    <view>
+      {{weatherList[1].day}}
+    </view>
+  </view>
+  <view id="aftertomorrow">
+    <view>
+      {{weatherList[2].wea}}
+    </view>
+    <view>
+      {{weatherList[2].tem2}} / {{weatherList[2].tem1}}
+    </view>
+    <view>
+      {{weatherList[2].day}}
+    </view>
+  </view>
+</view>
+
+<view class="container" wx:if="{{!haveTeacher}}">
+  <view class="weui-grids">
+    <view class="weui-grid" wx:for="{{routers}}" wx:key="name">
+        <view class='weui-grid__bg'>
+          <view class="weui-grid__icon">
+            {{item.name}}
+          </view>
+          <text class="weui-grid__label">{{item.value}}</text>
+        </view>
+    </view>
+  </view>
+</view>

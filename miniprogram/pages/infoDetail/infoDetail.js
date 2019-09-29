@@ -28,7 +28,7 @@ Page({
       id:options.id
     })
     console.log(this.data.id)
-    db.collection('parents').orderBy('date','desc').where({
+    db.collection('parents').orderBy('date','asc').where({
       noticeId: this.data.id
     }).get().then(res => {
       if(res.data){
@@ -36,6 +36,25 @@ Page({
           info: res.data,
           scrollHeight:res.data.length*100
         })
+        if (this.data.info.length > 0) {
+          this.setData({
+            ['info[0].img']: '../../images/first.png'
+          })
+        }
+        if (this.data.info.length > 1) {
+          this.setData({
+            ['info[0].img']: '../../images/first.png',
+            ['info[1].img']: '../../images/second.png'
+          })
+        }
+        if (this.data.info.length > 2) {
+          this.setData({
+            ['info[0].img']: '../../images/first.png',
+            ['info[1].img']: '../../images/second.png',
+            ['info[2].img']: '../../images/third.png'
+          })
+        }
+        
       }else{
         this.setData({
           info:[]
