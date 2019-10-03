@@ -3,7 +3,12 @@
 </view>
 <view id="addType">
   <view id="addTypeTitle"><text style="color:red">*</text>通知类别：</view>
-  <input id="addTypeInput" placeholder="请输入" bindinput="typeInput"/>
+  <picker id="addTypeInput" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+      {{array[index]}}
+    </view>
+    <image class="gengduo" src="../../images/xia.png"></image>
+  </picker>
 </view>
 
 <view id="addContent">

@@ -12,7 +12,8 @@ Page({
     todayDateTime:'',
     imgbox:[],
     fileIDs: '',
-
+    array: ['日常通知', '作业通知', '重要通知'],
+    index:0
   },
 
   /**
@@ -33,10 +34,10 @@ Page({
     })
   },
   info:function(){
-    if(!this.data.content || !this.data.type){
+    if(!this.data.content){
       wx.showModal({
         title: '提示',
-        content: '请将通知类别和通知内容填写完整',
+        content: '请将通知内容填写完整',
         showCancel: false,
       })
     }else{
@@ -105,7 +106,7 @@ Page({
                 db.collection('notices').add({
                   data: {
                     date: this.data.todayDateTime,
-                    type: this.data.type,
+                    type: this.data.array[this.data.index],
                     content: this.data.content,
                     imgList: imgList
                   },
@@ -174,6 +175,12 @@ Page({
   imgbox: function (e) {
     this.setData({
       imgbox: e.detail.value
+    })
+  },
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
     })
   },
   /**

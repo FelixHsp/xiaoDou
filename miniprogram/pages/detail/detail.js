@@ -235,7 +235,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '小豆班有新的通知啦',
+      title: '小豆豆班有新的通知啦',
       desc: this.data.list.type,
       path: '/pages/detail/detail?shareId=' + this.data.id
     }

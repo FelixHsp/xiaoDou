@@ -23,6 +23,19 @@ body{
   box-sizing:border-box;
   /* text-indent: 1em; */
   padding-left: 1.2em;
+  position: relative;
+}
+#addTypeInput .picker{
+  line-height: 40px;
+}
+#addTypeInput .gengduo{
+  position: absolute;
+  top: 50%;
+  transform: translate(0,-50%);
+  line-height: 40px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
 }
 #addContent{
   width: 320px;
