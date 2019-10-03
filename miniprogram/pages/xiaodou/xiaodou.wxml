@@ -6,29 +6,7 @@
   <view id="weatherTitle">{{weather.title}}</view>
   <view id="weatherTip">{{weather.tip}}</view>
 </view>
-<button wx:if="{{haveTeacherBar}}" id="teacherBtn" bindtap="watchTeacher">查看教师码</button>
-<view id="addOne" bindtap="add" wx:if="{{isTeacher}}">
-  <image src="../../images/add.png"></image>
-  <!-- <view>发布一个通知</view> -->
-</view>
-
-<view id="theNew">
-
-</view>
-
-<view id="list" wx:for="{{list}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" bindtap="goDetail" data-id="{{itemName._id}}">
-  <view id="type">
-    {{itemName.type}}
-  </view>
-  <view id="date">
-    {{itemName.date}}
-  </view>
-  <view id="content">
-    {{itemName.content}}
-  </view>
-  <image src="../../images/biao.png"></image>
-</view>
-<view wx:if="{{!haveTeacher}}" id="weatherList">
+<view  id="weatherList">
   <view id="today">
     <view>
       {{weatherList[0].wea}}
@@ -39,7 +17,6 @@
     <view>
       {{weatherList[0].day}}
     </view>
-
   </view>
   <view id="tomorrow">
     <view>
@@ -64,7 +41,28 @@
     </view>
   </view>
 </view>
+<button wx:if="{{haveTeacherBar}}" id="teacherBtn" bindtap="watchTeacher">查看教师码</button>
+<view id="addOne" bindtap="add" wx:if="{{isTeacher}}">
+  <image src="../../images/add.png"></image>
+  <!-- <view>发布一个通知</view> -->
+</view>
 
+<view id="theNew">
+
+</view>
+
+<view id="list" wx:for="{{list}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" bindtap="goDetail" data-id="{{itemName._id}}">
+  <view id="type">
+    {{itemName.type}}
+  </view>
+  <view id="date">
+    {{itemName.date}}
+  </view>
+  <view id="content">
+    {{itemName.content}}
+  </view>
+  <image src="../../images/biao.png"></image>
+</view>
 <view class="container" wx:if="{{!haveTeacher}}">
   <view class="weui-grids">
     <view class="weui-grid" wx:for="{{routers}}" wx:key="name">

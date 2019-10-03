@@ -4,11 +4,12 @@ body{
 #weatherWrapper{
   position: relative;
   width: 95%;
-  height: 210px;
+  height: 180px;
   background: white;
   margin: 10px auto;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px #eee;
+  margin-bottom: 5px;
 }
 #weatherWelcome{
   font-size: 28px;
@@ -21,7 +22,7 @@ body{
   color: #4c5260;
   position: absolute;
   left: 20px;
-  top: 110px;
+  top: 90px;
   font-size: 26px;
   /* transform: translate(0,-50%); */
 }
@@ -30,7 +31,7 @@ body{
   position: absolute;
   font-size: 14px;
   left: 83px;
-  top: 124px;
+  top: 104px;
   /* transform: translate(0,100%); */
 }
 #weatherTitle{
@@ -38,14 +39,14 @@ body{
   position: absolute;
   left: 20px;
   font-size: 14px;
-  top: 150px;
+  top: 130px;
 }
 #weatherTip{
   color: #4c5260;
   position: absolute;
   left: 20px;
   font-size: 14px;
-  top: 170px;
+  top: 150px;
 }
 #weatherImg{
   width: 100px;
@@ -136,9 +137,9 @@ body{
 }
 #weatherList{
   width: 95%;
-  margin: 10px auto;
+  margin: 5px auto;
   text-align: center;
-  color: #999;
+  color: #4c5260;
   font-size: 12px;
 }
 #today{
