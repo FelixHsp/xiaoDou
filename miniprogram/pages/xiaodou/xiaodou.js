@@ -14,6 +14,7 @@ Page({
     haveTeacher:true,
     weatherList:[],
     todayWeather:[],
+    haveTeacherBar:false,
     routers: [
       {
         name: '',
@@ -73,6 +74,14 @@ Page({
             })
           }
         })
+        db.collection('tag').get().then(res => {
+          if (res.data[0]) {
+            this.setData({
+              haveTeacherBar: true
+            })
+            console.log(1)
+          }
+        })
         db.collection('teachers').where({
           teacherId: this.data.openid,
         }).get().then(res => {
@@ -96,7 +105,7 @@ Page({
         secret: '65dc06535039fc2495795ab4ba1cfb0c'
       },
     }).then(res => {
-      console.log(JSON.parse(res.result))
+      // console.log(JSON.parse(res.result))
       this.setData({
         ['routers[0].name']: '空气'+JSON.parse(res.result).air,
         ['routers[0].value']: JSON.parse(res.result).air_level,
@@ -197,20 +206,20 @@ Page({
       })
     })
     db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       this.setData({
         list:res.data
       })
     })
   },
   add:function(){
-    console.log(1111)
+    // console.log(1111)
     wx.navigateTo({
       url: '../addOne/addOne'
     })
   },
   goDetail:function(e){
-    console.log(e.currentTarget.dataset.id)
+    // console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../detail/detail?id=' + e.currentTarget.dataset.id,
     })
@@ -234,7 +243,7 @@ Page({
    */
   onShow: function () {
     db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       this.setData({
         list: res.data
       })

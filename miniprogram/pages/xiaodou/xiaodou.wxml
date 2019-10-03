@@ -6,7 +6,7 @@
   <view id="weatherTitle">{{weather.title}}</view>
   <view id="weatherTip">{{weather.tip}}</view>
 </view>
-<button wx:if="{{!haveTeacher}}" id="teacherBtn" bindtap="watchTeacher">查看教师码</button>
+<button wx:if="{{haveTeacherBar}}" id="teacherBtn" bindtap="watchTeacher">查看教师码</button>
 <view id="addOne" bindtap="add" wx:if="{{isTeacher}}">
   <image src="../../images/add.png"></image>
   <!-- <view>发布一个通知</view> -->
