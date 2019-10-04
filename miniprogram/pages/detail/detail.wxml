@@ -11,14 +11,18 @@
 
 <view wx:if="{{!isTeacher}}">
   <view id="parentsInfo" wx:if="{{!isInfo}}">
-  <view>确认收到</view>
-  <input id="parentsInfoInput" placeholder="请输入您孩子的姓名" bindinput="parentsInfo"></input>
-  <button id="parentsInfoBtn" bindtap="infoBtn">提交</button>
-</view>
-<view id="parentsDetail" wx:if="{{isInfo}}">
-  <view>您已确认收到，可点击下方按钮查看提交详情</view>
-  <button id="parentsDetailBtn" bindtap="detailBtn" style="margin-bottom:0">查看详情</button>
-</view>
+    <view>确认收到:</view>
+    <input id="parentsInfoInput" placeholder="请输入您孩子的姓名" bindinput="parentsInfo"></input>
+    <view wx:if="{{isBeizhu}}">
+      <view style="margin-top:10px">填写备注信息:</view>
+      <input id="parentsInfoInput" placeholder="请填写老师要求的备注信息" bindinput="beizhuInfo"></input>
+    </view>
+    <button id="parentsInfoBtn" bindtap="infoBtn">提交</button>
+  </view>
+  <view id="parentsDetail" wx:if="{{isInfo}}">
+    <view>您已确认收到，可点击下方按钮查看提交详情</view>
+    <button id="parentsDetailBtn" bindtap="detailBtn" style="margin-bottom:0">查看详情</button>
+  </view>
 </view>
 <view id="parentsDetail" wx:if="{{isTeacher}}">
   <view>点击下方按钮查看家长提交详情</view>

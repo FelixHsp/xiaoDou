@@ -5,7 +5,7 @@
 <swiper current="{{currentData}}" class='swiper' style="height:{{scrollHeight}}px" duration="300" bindchange="bindchange">
 <!-- 当前正在使用的自习室列表 -->
   <swiper-item>
-    <view id="infoList" wx:for="{{info}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" data-id="{{itemName._id}}">
+    <view id="infoList" wx:for="{{info}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" data-id="{{itemName._id}}" bindtap="childrenBeizhu">
     <image src="{{itemName.img}}"></image>
     <view id="name">
       {{itemName.name}}同学

@@ -12,8 +12,10 @@ Page({
     openid:'',
     isInfo:false,
     childrenName:'',
+    childrenBeizhu:'',
     isTeacher:false,
     isShare:false,
+    isBeizhu:false
   },
 
   /**
@@ -71,6 +73,16 @@ Page({
       this.setData({
         list: res.data[0]
       })
+      if(res.data[0].tag == true){
+        this.setData({
+          isBeizhu:true
+        })
+      }
+      if (res.data[0].tag == false) {
+        this.setData({
+          isBeizhu: false
+        })
+      }
       // console.log(this.data.list.imgList.length)
       // console.log(this.data.list)
       var imgSrc=[];
@@ -102,6 +114,12 @@ Page({
         title: '提示',
         content: '请填写您孩子的姓名',
         showCancel:false
+      })
+    }else if(this.data.isBeizhu && !this.data.childrenBeizhu){
+      wx.showModal({
+        title: '提示',
+        content: '请填写备注信息',
+        showCancel: false
       })
     }else{
     // console.log(this.data.childrenName)
@@ -148,6 +166,7 @@ Page({
                   name: this.data.childrenName,
                   date: this.data.todayDateTime,
                   noticeId: this.data.id,
+                  beizhu:this.data.childrenBeizhu,
                   img: this.data.childrenImg
                 }
               }).then(res => {
@@ -170,6 +189,11 @@ Page({
       }
     })
   }
+  },
+  beizhuInfo:function(e){
+    this.setData({
+      childrenBeizhu: e.detail.value
+    })
   },
   previewImage: function (e) {
     var current = e.target.dataset.src;

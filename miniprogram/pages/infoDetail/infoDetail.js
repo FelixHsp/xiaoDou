@@ -16,6 +16,7 @@ Page({
     number:'',
     currentData: 0,
     scrollHeight:'',
+    isBeizhu:false
   },
 
   /**
@@ -28,6 +29,16 @@ Page({
       id:options.id
     })
     console.log(this.data.id)
+    db.collection('notices').where({
+      _id:this.data.id
+    }).get().then(res => {
+      console.log(res.data)
+      if(res.data[0].tag == true){
+        this.setData({
+          isBeizhu:true
+        })
+      }
+    })
     db.collection('parents').orderBy('date','asc').where({
       noticeId: this.data.id
     }).get().then(res => {
@@ -120,16 +131,30 @@ Page({
     if(this.data.currentData*1 == 0){
       // console.log(1)
       this.setData({
-        scrollHeight:this.data.info.length*100
+        scrollHeight:this.data.info.length*75
       })
     }else if(this.data.currentData*1 == 1){
       // console.log(2)
       this.setData({
-        scrollHeight:this.data.notInfoList.length*100
+        scrollHeight:this.data.notInfoList.length*75
       })
     }
   },
-
+  childrenBeizhu:function(e){
+    if(this.data.isBeizhu){
+      console.log(e.currentTarget.dataset.id)
+      db.collection('parents').where({
+        _id: e.currentTarget.dataset.id
+      }).get().then(res => {
+        console.log(res.data)
+        wx.showModal({
+          title: res.data[0].name+'同学的备注信息',
+          content: res.data[0].beizhu,
+          showCancel:false
+        })
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -11,6 +11,7 @@ body{
   margin: 20px auto;
   color: #4c5260;
   font-size: 14px;
+  margin-bottom: 0;
 }
 #addTypeInput{
   border: 1px solid #ccc;
@@ -39,10 +40,22 @@ body{
 }
 #addContent{
   width: 320px;
-  margin: 15px auto;
+  margin: 20px auto;
   color: #4c5260;
   font-size: 14px;
+  margin-bottom: 0;
 }
+#addTag{
+  width: 320px;
+  margin: 20px auto;
+  color: #4c5260;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+#addTag switch{
+  margin-top: 10px;
+}
+
 #addContentInput{
   border: 1px solid #ccc;
   height: 120px;

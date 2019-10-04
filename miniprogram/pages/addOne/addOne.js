@@ -13,7 +13,8 @@ Page({
     imgbox:[],
     fileIDs: '',
     array: ['日常通知', '作业通知', '重要通知'],
-    index:0
+    index:0,
+    beizhuTag:false,
   },
 
   /**
@@ -108,6 +109,7 @@ Page({
                     date: this.data.todayDateTime,
                     type: this.data.array[this.data.index],
                     content: this.data.content,
+                    tag:this.data.beizhuTag,
                     imgList: imgList
                   },
                   success: function (res) {
@@ -181,6 +183,12 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value
+    })
+  },
+  switchChange:function(e){
+    console.log(e.detail.value)
+    this.setData({
+      beizhuTag:e.detail.value
     })
   },
   /**
