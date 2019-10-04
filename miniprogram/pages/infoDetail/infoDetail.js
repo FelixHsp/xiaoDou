@@ -43,8 +43,16 @@ Page({
       noticeId: this.data.id
     }).get().then(res => {
       if(res.data){
+        var arr = res.data
+        // 数据去重
+        var hash = [];
+        arr = arr.reduce(function (x, y) {
+          hash[y['name']] ? '' : hash[y['name']] = true && x.push(y);
+          return x;
+        }, []);
+        console.log(arr)
         this.setData({
-          info: res.data,
+          info: arr,
           scrollHeight:res.data.length*100
         })
         if (this.data.info.length > 0) {

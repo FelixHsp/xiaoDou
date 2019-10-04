@@ -242,12 +242,48 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // console.log(2)
     db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
       // console.log(res.data)
       this.setData({
         list: res.data
       })
-      wx.stopPullDownRefresh()
+    });
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        this.setData({
+          openid: res.result.openid
+        })
+        // console.log(this.data.openid)
+        db.collection('teachers').get().then(res => {
+          if (!res.data[0]) {
+            this.setData({
+              haveTeacher: false
+            })
+            console.log(1)
+          }
+        })
+        db.collection('tag').get().then(res => {
+          if (res.data[0]) {
+            this.setData({
+              haveTeacherBar: true
+            })
+          }
+        })
+        db.collection('teachers').where({
+          teacherId: this.data.openid,
+        }).get().then(res => {
+          if (res.data[0]) {
+            this.setData({
+              isTeacher: true
+            })
+          }
+        })
+      },
+      fail: err => {
+      }
     })
   },
 
@@ -269,8 +305,44 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        this.setData({
+          openid: res.result.openid
+        })
+        // console.log(this.data.openid)
+        db.collection('teachers').get().then(res => {
+          if (!res.data[0]) {
+            this.setData({
+              haveTeacher: false
+            })
+            console.log(1)
+          }
+        })
+        db.collection('tag').get().then(res => {
+          if (res.data[0]) {
+            this.setData({
+              haveTeacherBar: true
+            })
+          }
+        })
+        db.collection('teachers').where({
+          teacherId: this.data.openid,
+        }).get().then(res => {
+          if (res.data[0]) {
+            this.setData({
+              isTeacher: true
+            })
+          }
+        })
+      },
+      fail: err => {
+      }
+    })
     db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       this.setData({
         list: res.data
       })
@@ -289,6 +361,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '小豆豆班通知专用小程序',
+      path: '/pages/xiaodou/xiaodou'
+    }
   }
 })

@@ -15,6 +15,7 @@ Page({
     array: ['日常通知', '作业通知', '重要通知'],
     index:0,
     beizhuTag:false,
+    btnTag:true
   },
 
   /**
@@ -48,82 +49,87 @@ Page({
         confirmColor: '#7c7f97',
         success:(res)=> {
           if (res.confirm) {
-            wx.cloud.callFunction({
-              // 云函数名称
-              name: 'time',
-              // 传给云函数的参数
-              data: {
-                
-              },
-            }).then(res=>{
-              var time = Date.parse(new Date(JSON.parse(res.result).sysTime2.replace(/-/g, '/'))) / 1000
+            if(this.data.btnTag){
               this.setData({
-                todayTime: time,
-                todayDate: JSON.parse(res.result).sysTime2.split(' ')[0],
-                todayDateTime: JSON.parse(res.result).sysTime2
+                btnTag:false
               })
-              wx.showLoading({
-                title: '发布中',
-              })
-              let promiseArr = [];
-              let imgList = []
-              for (let i = 0; i < this.data.imgbox.length; i++) {
-                promiseArr.push(new Promise((reslove, reject) => {
-                  let item = this.data.imgbox[i];
-                  let suffix = /\.\w+$/.exec(item)[0];//正则表达式返回文件的扩展名
-                  wx.cloud.uploadFile({
-                    cloudPath: new Date().getTime() + suffix, // 上传至云端的路径
-                    filePath: item, // 小程序临时文件路径
-                    success: res => {
-                      this.setData({
-                        fileIDs: this.data.fileIDs.concat(res.fileID)
-                      });
-                      imgList.push(res.fileID)
-                      // console.log(imgList)
-                      reslove();
-                      wx.hideLoading();
-                      wx.showToast({
-                        title: "发布成功",
+              wx.cloud.callFunction({
+                // 云函数名称
+                name: 'time',
+                // 传给云函数的参数
+                data: {
+
+                },
+              }).then(res => {
+                var time = Date.parse(new Date(JSON.parse(res.result).sysTime2.replace(/-/g, '/'))) / 1000
+                this.setData({
+                  todayTime: time,
+                  todayDate: JSON.parse(res.result).sysTime2.split(' ')[0],
+                  todayDateTime: JSON.parse(res.result).sysTime2
+                })
+                wx.showLoading({
+                  title: '发布中',
+                })
+                let promiseArr = [];
+                let imgList = []
+                for (let i = 0; i < this.data.imgbox.length; i++) {
+                  promiseArr.push(new Promise((reslove, reject) => {
+                    let item = this.data.imgbox[i];
+                    let suffix = /\.\w+$/.exec(item)[0];//正则表达式返回文件的扩展名
+                    wx.cloud.uploadFile({
+                      cloudPath: new Date().getTime() + suffix, // 上传至云端的路径
+                      filePath: item, // 小程序临时文件路径
+                      success: res => {
+                        this.setData({
+                          fileIDs: this.data.fileIDs.concat(res.fileID)
+                        });
+                        imgList.push(res.fileID)
+                        // console.log(imgList)
+                        reslove();
+                        wx.hideLoading();
+                        wx.showToast({
+                          title: "发布成功",
+                        })
+                      },
+                      fail: res => {
+                        wx.hideLoading();
+                        wx.showToast({
+                          title: "上传失败",
+                        })
+                      }
+
+                    })
+                  }));
+                }
+                Promise.all(promiseArr).then(res => {//等数组都做完后做then方法
+                  console.log("图片上传完成后再执行")
+                  console.log(imgList)
+                  this.setData({
+                    imgbox: []
+                  })
+                  console.log(this.data.todayDateTime)
+                  const db = wx.cloud.database()
+                  db.collection('notices').add({
+                    data: {
+                      date: this.data.todayDateTime,
+                      type: this.data.array[this.data.index],
+                      content: this.data.content,
+                      tag: this.data.beizhuTag,
+                      imgList: imgList
+                    },
+                    success: function (res) {
+                      console.log(res)
+                      wx.reLaunch({
+                        url: '../xiaodou/xiaodou',
                       })
                     },
-                    fail: res => {
-                      wx.hideLoading();
-                      wx.showToast({
-                        title: "上传失败",
-                      })
-                    }
-
+                    fail: function (err) {
+                      console.log(err)
+                    },
                   })
-                }));
-              }
-              Promise.all(promiseArr).then(res => {//等数组都做完后做then方法
-                console.log("图片上传完成后再执行")
-                console.log(imgList)
-                this.setData({
-                  imgbox: []
-                })
-                console.log(this.data.todayDateTime)
-                const db = wx.cloud.database()
-                db.collection('notices').add({
-                  data: {
-                    date: this.data.todayDateTime,
-                    type: this.data.array[this.data.index],
-                    content: this.data.content,
-                    tag:this.data.beizhuTag,
-                    imgList: imgList
-                  },
-                  success: function (res) {
-                    console.log(res)
-                    wx.reLaunch({
-                      url: '../xiaodou/xiaodou',
-                    })
-                  },
-                  fail: function (err) {
-                    console.log(err)
-                  },
                 })
               })
-            })
+            }
           } else if (res.cancel) {
             
           }
@@ -202,7 +208,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      btnTag:true
+    })
   },
 
   /**

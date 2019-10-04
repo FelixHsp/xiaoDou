@@ -65,6 +65,13 @@ body{
   color: white;
   margin-top: 20px;
 }
+#deleteBtn{
+  border: 1px solid #7c7f97;
+  width: 100%;
+  background: #7c7f97;
+  color: white;
+  margin-top: 10px;
+}
 .d-back-home {
   position: fixed;
   width: 96rpx;

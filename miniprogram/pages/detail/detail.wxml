@@ -27,5 +27,6 @@
 <view id="parentsDetail" wx:if="{{isTeacher}}">
   <view>点击下方按钮查看家长提交详情</view>
   <button id="parentsDetailBtn" bindtap="detailBtn">查看详情</button>
+  <button id="deleteBtn" bindtap="deleteBtn">删除该通知</button>
 </view>
 <button id="parentsDetailBtn" bindtap="backHome" style="margin-top:-10px;width:80%">返回首页</button>
