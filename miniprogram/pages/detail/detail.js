@@ -84,24 +84,27 @@ Page({
           isBeizhu: false
         })
       }
+      this.setData({
+        imgSrc:this.data.list.imgList
+      })
       // console.log(this.data.list.imgList.length)
       // console.log(this.data.list)
-      var imgSrc = [];
-      for (var i = 0; i < this.data.list.imgList.length; i++) {
-        wx.cloud.downloadFile({
-          fileID: this.data.list.imgList[i],
-          success: res => {
-            imgSrc.push(res.tempFilePath)
-            // console.log(imgSrc)
-            this.setData({
-              imgSrc: imgSrc
-            })
-          },
-          fail: err => {
-            // handle error
-          }
-        })
-      }
+      // var imgSrc = [];
+      // for (var i = 0; i < this.data.list.imgList.length; i++) {
+      //   wx.cloud.downloadFile({
+      //     fileID: this.data.list.imgList[i],
+      //     success: res => {
+      //       imgSrc.push(res.tempFilePath)
+      //       // console.log(imgSrc)
+      //       this.setData({
+      //         imgSrc: imgSrc
+      //       })
+      //     },
+      //     fail: err => {
+      //       // handle error
+      //     }
+      //   })
+      // }
     })
   },
   parentsInfo: function (e) {

@@ -25,7 +25,7 @@
   <view id="delImgTitle" wx:if="{{imgbox.length>0}}" >点击图片可以删除它</view>
   <button id="imgButton" bindtap='addPic1'wx:if="{{imgbox.length<9}}">选择图片</button>
   <view id="imgBox">
-  <image class='img' src='{{item}}' wx:key="imgbox" wx:for="{{imgbox}}" data-deindex='{{index}}' bindtap='imgDelete1'></image>
+  <image class='img' mode='aspectFill' src='{{item}}' wx:key="imgbox" wx:for="{{imgbox}}" data-deindex='{{index}}' bindtap='imgDelete1'></image>
   </view>
 </view>
 <button id="addButton" bindtap="info">发布</button>
