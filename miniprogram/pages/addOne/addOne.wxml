@@ -28,4 +28,4 @@
   <image class='img' mode='aspectFill' src='{{item}}' wx:key="imgbox" wx:for="{{imgbox}}" data-deindex='{{index}}' bindtap='imgDelete1'></image>
   </view>
 </view>
-<button id="addButton" bindtap="info">发布</button>
+<button id="addButton" bindtap="info" hover-class="btn-hover">发布</button>

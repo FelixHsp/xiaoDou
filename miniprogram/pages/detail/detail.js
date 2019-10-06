@@ -123,6 +123,9 @@ Page({
           content: '请填写您孩子的姓名',
           showCancel: false
         })
+        this.setData({
+          btnTag: true
+        })
       } else if (this.data.isBeizhu && !this.data.childrenBeizhu) {
         this.setData({
           btnTag: false
@@ -131,6 +134,9 @@ Page({
           title: '提示',
           content: '请填写备注信息',
           showCancel: false
+        })
+        this.setData({
+          btnTag: true
         })
       } else {
         this.setData({
@@ -158,6 +164,9 @@ Page({
               } else {
                 this.setData({
                   btnTag: false
+                })
+                wx.showLoading({
+                  title: '提交中',
                 })
                 // console.log(res.data[0].img)
                 this.setData({
@@ -187,9 +196,15 @@ Page({
                       img: this.data.childrenImg
                     }
                   }).then(res => {
-                    wx.redirectTo({
-                      url: '../detail/detail?id=' + this.data.id,
+                    wx.hideLoading();
+                    wx.showToast({
+                      title: "提交成功",
                     })
+                    setTimeout(()=>{
+                      wx.redirectTo({
+                        url: '../detail/detail?id=' + this.data.id,
+                      })
+                    },500)
                   })
                 })
               }

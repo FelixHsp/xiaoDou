@@ -49,8 +49,8 @@ body{
   top: 150px;
 }
 #weatherImg{
-  width: 110px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   right: 10px;
   top: 10px;
@@ -278,4 +278,9 @@ body{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.btn-hover{
+  position: relative;
+  top: 5rpx;
+  box-shadow:1px 1px 1px 1px #eee; 
 }
