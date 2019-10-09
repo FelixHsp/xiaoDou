@@ -12,7 +12,7 @@
 </view>
 <view id="addContent">
   <view id="addContentTitle"><text style="color:red">*</text>通知内容：</view>
-  <textarea id="addContentInput" placeholder="请输入" bindinput="contentInput"/>
+  <textarea id="addContentInput" placeholder="请输入" bindinput="contentInput" maxlength="-1"/>
 </view>
 
 <view id="addTag">
