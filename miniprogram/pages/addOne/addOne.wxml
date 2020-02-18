@@ -26,6 +26,23 @@
   <button id="imgButton" bindtap='addPic1'wx:if="{{imgbox.length<9}}">选择图片</button>
   <view id="imgBox">
   <image class='img' mode='aspectFill' src='{{item}}' wx:key="imgbox" wx:for="{{imgbox}}" data-deindex='{{index}}' bindtap='imgDelete1'></image>
+</view>
+
+<view id="addFile">
+  <view id="addFileTitle">
+    上传文件:
   </view>
+  <button wx:if="{{!currentFilePath}}" id="fileButton" bindtap='addFile' >
+    选择文件
+  </button>
+  <view wx:if="{{currentFilePath}}">
+    点击文件可以删除它
+  </view>
+  <view wx:if="{{currentFilePath}}" class="fileItem" bindtap="delFile">
+    <image src="../../images/file.png"></image>
+    <text>{{currentFileName}}</text>
+  </view>
+</view>
+
 </view>
 <button id="addButton" bindtap="info" hover-class="btn-hover">发布</button>
