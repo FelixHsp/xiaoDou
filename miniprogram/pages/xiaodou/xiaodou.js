@@ -7,6 +7,8 @@ Page({
    */
   data: {
     list: [],
+    count: 0,
+    currentCount: 0,
     weatherImg: '../../images/yun.png',
     welcome:'',
     isTeacher:false,
@@ -101,8 +103,8 @@ Page({
       // 传给云函数的参数
       data: {
         code: '101050101',
-        appid: 'wx884a75aea256a5b8',
-        secret: '65dc06535039fc2495795ab4ba1cfb0c'
+        appid: '21278312',
+        secret: '6OUVkDlk'
       },
     }).then(res => {
       // console.log(JSON.parse(res.result))
@@ -133,8 +135,8 @@ Page({
       // 传给云函数的参数
       data: {
         code: '101050101',
-        appid:'wx884a75aea256a5b8',
-        secret:'65dc06535039fc2495795ab4ba1cfb0c'
+        appid:'21278312',
+        secret:'6OUVkDlk'
       },
     }).then(res => {
       // console.log(JSON.parse(res.result).data[0])
@@ -205,11 +207,21 @@ Page({
         // ['weather.temp']: JSON.parse(res.result).temp+'℃'
       })
     })
+    db.collection('notices').count({
+      success: (res) => {
+        this.setData({
+          count: res.total
+        });
+        // console.log(this.data.count);
+      }
+    })
     db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
       // console.log(res.data)
       this.setData({
-        list:res.data
+        list:res.data,
+        currentCount: 5
       })
+      // console.log(this.data.currentCount);
     })
   },
   add:function(){
@@ -243,12 +255,19 @@ Page({
    */
   onShow: function () {
     // console.log(2)
-    db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
-      // console.log(res.data)
-      this.setData({
-        list: res.data
-      })
-    });
+    db.collection('notices').count({
+      success: res => {
+        if (res.total > this.data.count) {
+          db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
+            // console.log(res.data)
+            this.setData({
+              list: res.data,
+              currentCount: 5
+            })
+          });
+        }
+      }
+    })
     wx.cloud.callFunction({
       name: 'login',
       data: {},
@@ -344,7 +363,8 @@ Page({
     db.collection('notices').orderBy('date', 'desc').limit(5).get().then(res => {
       // console.log(res.data)
       this.setData({
-        list: res.data
+        list: res.data,
+        currentCount: 5
       })
       wx.stopPullDownRefresh()
     })
@@ -354,7 +374,26 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    if (this.data.currentCount <= this.data.count && this.data.isTeacher) {
+      // console.log(this.data.currentCount, this.data.count);
+      db.collection('notices').orderBy('date', 'desc').skip(this.data.currentCount).limit(5).get().then(res => {
+        let list = this.data.list;
+        for (let i = 0; i < res.data.length; i++) {
+          list.push(res.data[i]);
+        }
+        // console.log(list);
+        this.setData({
+          list: list,
+          currentCount: this.data.currentCount + 5
+        })
+      })
+    }
+    else {
+      wx.showToast({
+        title: '没有更多通知了',
+        icon: 'none'
+      })
+    }
   },
 
   /**

@@ -15,7 +15,9 @@ Page({
     array: ['日常通知', '作业通知', '重要通知'],
     index:0,
     beizhuTag:false,
-    btnTag:true
+    btnTag:true,
+    currentFileName: '',
+    currentFilePath: ''
   },
 
   /**
@@ -197,6 +199,27 @@ Page({
       beizhuTag:e.detail.value
     })
   },
+
+  addFile: function() {
+    wx.chooseMessageFile({
+      count: 1,
+      type: 'file',
+      success:(res) => {
+        this.setData({
+          currentFileName: res.tempFiles[0].name,
+          currentFilePath: res.tempFiles[0].path
+        });
+      }
+    })
+  },
+
+  delFile: function() {
+    this.setData({
+      currentFileName: '',
+      currentFilePath: ''
+    });
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

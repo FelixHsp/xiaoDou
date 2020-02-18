@@ -5,7 +5,7 @@
   {{list.date}}
 </view>
 <view id="content">
-  <text>{{list.content}}</text>
+  <text selectable='true' bindlongtap='copy'>{{list.content}}</text>
 </view>
 <image src="{{itemName}}" wx:for="{{imgSrc}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" mode="widthFix" id="contentImg" data-src="{{itemName}}" bindtap="previewImage"></image>
 

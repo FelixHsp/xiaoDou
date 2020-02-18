@@ -120,3 +120,52 @@ body{
   top: 5rpx;
   box-shadow:1px 1px 1px 1px #eee; 
 }
+
+#addFile{
+  width: 320px;
+  margin: 15px auto;
+  color: #4c5260;
+  font-size: 14px;
+}
+#fileButton{
+  border: 1px solid #7c7f97;
+  width: 80px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  background: white;
+  color: #7c7f97;
+  margin: 0;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.fileItem {
+  position: relative;
+  box-sizing: border-box;
+  width: 150px;
+  height: 40px;
+  padding: 0 10px;
+  margin-top: 10px;
+  line-height: 40px;
+  border-radius: 10px;
+  background-color: #7c7f97;
+  color: white;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  -webkit-box-orient:vertical;
+  word-break:break-all;
+}
+
+.fileItem image {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.fileItem text {
+  margin-left: 35px;
+}
