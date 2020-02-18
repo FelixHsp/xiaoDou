@@ -30,7 +30,7 @@ body{
   color: #4c5260;
   position: absolute;
   font-size: 14px;
-  left: 83px;
+  left: 93px;
   top: 104px;
   /* transform: translate(0,100%); */
 }
