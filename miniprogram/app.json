@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/addOne/addOne",
     "pages/xiaodou/xiaodou",
+    "pages/addOne/addOne",
     "pages/infoDetail/infoDetail",
     "pages/detail/detail",
     "pages/auth/auth"

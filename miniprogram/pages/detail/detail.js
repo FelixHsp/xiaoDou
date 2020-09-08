@@ -272,6 +272,29 @@ Page({
       }
     })
   },
+
+  openFile: function() {
+    wx.cloud.downloadFile({
+      fileID: this.data.list.filePath,
+      success: res => {
+        wx.openDocument({
+          filePath: res.tempFilePath,
+          success: function (res) {
+
+          },
+          fail: function (err) {
+            wx.showToast({
+              title: '打开文件失败，请稍后再试',
+              icon: 'none'
+            })
+          }
+        });
+      },
+      fail: console.error
+    })
+  },
+
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

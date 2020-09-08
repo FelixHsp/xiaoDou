@@ -12,6 +12,7 @@ Page({
     todayDateTime:'',
     imgbox:[],
     fileIDs: '',
+    filePath: '',
     array: ['日常通知', '作业通知', '重要通知'],
     index:0,
     beizhuTag:false,
@@ -73,7 +74,7 @@ Page({
                   title: '发布中',
                 })
                 let promiseArr = [];
-                let imgList = []
+                let imgList = [];
                 for (let i = 0; i < this.data.imgbox.length; i++) {
                   promiseArr.push(new Promise((reslove, reject) => {
                     let item = this.data.imgbox[i];
@@ -89,17 +90,35 @@ Page({
                         // console.log(imgList)
                         reslove();
                         wx.hideLoading();
-                        wx.showToast({
-                          title: "发布成功",
-                        })
                       },
                       fail: res => {
                         wx.hideLoading();
                         wx.showToast({
-                          title: "上传失败",
+                          title: '上传照片失败',
+                          icon: 'none'
                         })
                       }
-
+                    })
+                  }));
+                }
+                if (this.data.currentFilePath) {
+                  promiseArr.push(new Promise((reslove, reject) => {
+                    let suffix = /\.\w+$/.exec(this.data.currentFilePath)[0];//正则表达式返回文件的扩展名
+                    wx.cloud.uploadFile({
+                      cloudPath: new Date().getTime() + suffix, // 上传至云端的路径
+                      filePath: this.data.currentFilePath, // 小程序临时文件路径
+                      success: res => {
+                        this.setData({
+                          filePath: res.fileID
+                        });
+                        reslove();
+                      },
+                      fail: res => {
+                        wx.showToast({
+                          title: '上传文件失败',
+                          icon: 'none'
+                        })
+                      }
                     })
                   }));
                 }
@@ -109,26 +128,30 @@ Page({
                   this.setData({
                     imgbox: []
                   })
-                  console.log(this.data.todayDateTime)
-                  const db = wx.cloud.database()
+                  const db = wx.cloud.database();
                   db.collection('notices').add({
                     data: {
                       date: this.data.todayDateTime,
                       type: this.data.array[this.data.index],
                       content: this.data.content,
                       tag: this.data.beizhuTag,
-                      imgList: imgList
+                      imgList: imgList,
+                      filePath: this.data.filePath,
+                      fileName: this.data.currentFileName
                     },
                     success: function (res) {
-                      console.log(res)
+                      console.log(res);
+                      wx.showToast({
+                        title: "发布成功",
+                      });
                       wx.reLaunch({
                         url: '../xiaodou/xiaodou',
-                      })
+                      });
                     },
                     fail: function (err) {
                       console.log(err)
                     },
-                  })
+                  });
                 })
               })
             }

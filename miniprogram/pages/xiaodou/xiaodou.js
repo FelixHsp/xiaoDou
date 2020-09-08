@@ -107,11 +107,11 @@ Page({
         secret: '6OUVkDlk'
       },
     }).then(res => {
-      // console.log(JSON.parse(res.result))
+      console.log(JSON.parse(res.result))
       this.setData({
-        ['routers[0].name']: '空气'+JSON.parse(res.result).air,
+        ['routers[0].name']: '空气',
         ['routers[0].value']: JSON.parse(res.result).air_level,
-        ['routers[1].name']: JSON.parse(res.result).win,
+        ['routers[1].name']: '风速',
         ['routers[1].value']: JSON.parse(res.result).win_speed,
         ['routers[2].name']: '湿度',
         ['routers[2].value']: JSON.parse(res.result).humidity,

@@ -85,3 +85,43 @@ body{
   top: 5rpx;
   box-shadow:1px 1px 1px 1px #eee; 
 }
+
+.fileItemWrapper {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.fileTips {
+  color: #4c5260;
+  font-size: 14px;
+}
+
+.fileItem {
+  position: relative;
+  box-sizing: border-box;
+  width: 150px;
+  height: 40px;
+  padding: 0 10px;
+  line-height: 40px;
+  border-radius: 10px;
+  background-color: #7c7f97;
+  color: white;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  -webkit-box-orient:vertical;
+  word-break:break-all;
+}
+
+.fileItem image {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.fileItem text {
+  margin-left: 35px;
+}

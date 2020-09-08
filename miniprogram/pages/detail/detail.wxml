@@ -9,6 +9,14 @@
 </view>
 <image src="{{itemName}}" wx:for="{{imgSrc}}" wx:for-index="idx" wx:for-item="itemName" wx:key="{{itemName._id}}" mode="widthFix" id="contentImg" data-src="{{itemName}}" bindtap="previewImage"></image>
 
+<view wx:if="{{list.filePath}}" class="fileItemWrapper" >
+  <view class="fileTips">点击查看文件</view>
+  <view class="fileItem" bindtap="openFile">
+      <image src="../../images/file.png"></image>
+      <text>{{list.fileName}}</text>
+  </view>
+</view>
+
 <view wx:if="{{!isTeacher}}">
   <view id="parentsInfo" wx:if="{{!isInfo}}">
     <view>确认收到:</view>
