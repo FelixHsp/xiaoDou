@@ -1,4 +1,5 @@
 // pages/addOne/addOne.js
+const appInstance = getApp();
 Page({
 
   /**
@@ -25,7 +26,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.setNavigationBarTitle({
+      title: appInstance.globalData.titleName || '',
+    });
   },
   typeInput:function(e){
     // console.log(e.detail.value)
@@ -292,7 +295,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '小豆豆班通知专用小程序',
+      title: `${appInstance.globalData.titleName}班通知专用小程序`,
       path: '/pages/xiaodou/xiaodou'
     }
   }

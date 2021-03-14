@@ -37,6 +37,18 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {};
+
+    const db = wx.cloud.database();
+
+    db.collection('titleName').get().then(res => {
+      wx.setNavigationBarTitle({
+        title: res.data[0].name,
+      });
+      
+      this.globalData = {
+        titleName: res.data[0].name
+      };
+    });
   }
 })

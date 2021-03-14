@@ -1,5 +1,6 @@
 // pages/detail/detail.js
 const db = wx.cloud.database();
+const appInstance = getApp();
 Page({
 
   /**
@@ -23,6 +24,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: appInstance.globalData.titleName || '',
+    });
     if (options.id) {
       this.setData({
         id: options.id
@@ -344,7 +348,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '小豆豆班有新的通知啦',
+      title: `${appInstance.globalData.titleName}有新的通知啦`,
       desc: this.data.list.type,
       path: '/pages/detail/detail?shareId=' + this.data.id
     }

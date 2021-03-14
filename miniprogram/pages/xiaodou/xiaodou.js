@@ -1,5 +1,6 @@
 // pages/xiaodou/xiaodou.js
 const db = wx.cloud.database();
+const appInstance = getApp();
 Page({
 
   /**
@@ -61,6 +62,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: appInstance.globalData.titleName || '',
+    });
     wx.cloud.callFunction({
       name: 'login',
       data: {},
@@ -69,7 +73,7 @@ Page({
           openid: res.result.openid
         })
         // console.log(this.data.openid)
-        db.collection('teachers').get().then(res => {
+        db.collection('teachers').get().then(res => {;
           if(!res.data[0]){
             this.setData({
               haveTeacher:false
@@ -401,7 +405,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '小豆豆班通知专用小程序',
+      title: `${appInstance.globalData.titleName}班通知专用小程序`,
       path: '/pages/xiaodou/xiaodou'
     }
   }
